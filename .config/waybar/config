@@ -37,7 +37,6 @@
     "clock#time": {
                         "format": "{:%I:%M %p }"
                 },
-
     "custom/separator": {
         "format": "|",
         "tooltip": false,},
