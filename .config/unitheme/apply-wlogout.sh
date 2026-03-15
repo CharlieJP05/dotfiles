@@ -1,19 +1,33 @@
+#!/bin/bash
+# Apply unitheme to wlogout logout menu
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/theme.conf"
+
+WLOGOUT_CSS="${HOME}/.config/wlogout/style.css"
+
+if [[ ! -d "$(dirname "$WLOGOUT_CSS")" ]]; then
+    echo "wlogout config directory not found"
+    exit 1
+fi
+
+cat > "$WLOGOUT_CSS" << EOF
 *  {
 	background-image: none;
 	box-shadow: none;
 }
 
 window {
-	background-color: rgba(12, 12, 12, 0.9);
+	background-color: ${WLOGOUT_WINDOW_BG};
 }
 
 button {
     border-radius: 15;
 	margin: 8px;
     border-color: black;
-	text-decoration-color: #ffffff;
-    color: #ffffff;
-	background-color: #363a4f;
+	text-decoration-color: ${WLOGOUT_BUTTON_TEXT};
+    color: ${WLOGOUT_BUTTON_TEXT};
+	background-color: ${WLOGOUT_BUTTON_BG};
 	border-style: solid;
 	border-width: 0px;
 	background-repeat: no-repeat;
@@ -22,7 +36,7 @@ button {
 }
 
 button:focus, button:active, button:hover {
-	background-color: #8aadf4;
+	background-color: ${WLOGOUT_BUTTON_HOVER};
 	outline-style: none;
 }
 
@@ -49,3 +63,6 @@ button:focus, button:active, button:hover {
 #reboot {
     background-image: image(url("/usr/share/wlogout/icons/reboot.png"), url("/usr/local/share/wlogout/icons/reboot.png"));
 }
+EOF
+
+echo "Applied theme to wlogout"
